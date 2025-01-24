@@ -1,3 +1,4 @@
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -50,6 +51,8 @@ public class LevelEditor : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.LeftArrow)) AddNoteAtCurrentTime(1);
         
         if (Input.GetKeyDown(KeyCode.RightArrow)) AddNoteAtCurrentTime(2);
+        
+        if (Input.GetKey(KeyCode.A)) ValidateTimestamps();
     }
 
     void ShowLevelInfo()
@@ -95,6 +98,19 @@ public class LevelEditor : MonoBehaviour
         
         _audioSource.Pause();
         if (play) _audioSource.Play();
+    }
+    
+    void ValidateTimestamps()
+    {
+        for (int i = 0; i < Data.Keys.Count; i++)
+        {
+            float x = Data.Keys.ToArray()[i];
+            double x1 = x % 0.588;
+
+            float newX = (float)(x + 0.588 - x1);
+
+            Debug.Log(newX);
+        }
     }
 
     public void SaveLevel()
