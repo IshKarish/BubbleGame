@@ -7,7 +7,7 @@ using UnityEngine;
 public class ScoreManager : MonoBehaviour
 {
     private int _score;
-    [SerializeField] private TextMeshProUGUI _scoreText;
+    [SerializeField][CanBeNull] private TextMeshProUGUI _scoreText;
     [SerializeField][CanBeNull] private TextMeshProUGUI _leaderBoardText;
 
     private const int MaxLeaderboardEntries = 10;
