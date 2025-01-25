@@ -33,13 +33,13 @@ public class LevelData
         AuthorName = editor.LevelInfo.AuthorName;
         Bpm = editor.LevelInfo.Bpm;
             
-        Channels = editor.Clip.channels;
-        SamplesLength = editor.Clip.samples * Channels;
-        Frequency = editor.Clip.frequency;
-        Samples = GetAudioSamples(editor.Clip, SamplesLength);
+        Channels = editor.clip.channels;
+        SamplesLength = editor.clip.samples * Channels;
+        Frequency = editor.clip.frequency;
+        Samples = GetAudioSamples(editor.clip, SamplesLength);
 
-        Timestamps = editor.Data.Keys.ToArray();
-        Lanes = editor.Data.Values.ToArray();
+        Timestamps = editor.data.Keys.ToArray();
+        Lanes = editor.data.Values.ToArray();
     }
 
     float[] GetAudioSamples(AudioClip clip, int sampleLength)

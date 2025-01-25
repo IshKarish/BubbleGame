@@ -72,7 +72,7 @@ public class LevelCreator : MonoBehaviour
         LevelEditor editor = GetComponent<LevelEditor>();
         editor.LevelInfo = levelData.LevelInfo;
 
-        editor.Data = levelData.Data;
+        editor.data = levelData.Data;
 
         editor.enabled = true;
     }
