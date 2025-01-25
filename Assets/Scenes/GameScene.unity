@@ -473,7 +473,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 567224545}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fd2d0cd5a919cac46b34fd94091ed070, type: 3}
+  m_Script: {fileID: 11500000, guid: 726acce7cf15aec4fa36a2770835ae79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   spawners:
@@ -481,15 +481,12 @@ MonoBehaviour:
   - {fileID: 82998098}
   - {fileID: 472140479}
   - {fileID: 1676121580}
-  bubblePrefab: {fileID: 6518605019786513557, guid: 09346b310f399194dbe209ee35fb3281, type: 3}
+  arrowPrefab: {fileID: 6518605019786513557, guid: 09346b310f399194dbe209ee35fb3281, type: 3}
   mapName: BM_Ayef
-  _nextTimestamp: 0
-  _nextLane: 0
-  _nextNoteIndex: 0
   timingThresholds:
     perfectThreshold: 0.1
     goodThreshold: 0.25
-  laneKeys: 14010000120100001101000013010000
+  laneKeys: 14010000130100001201000011010000
 --- !u!4 &567224548
 Transform:
   m_ObjectHideFlags: 0

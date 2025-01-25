@@ -13,7 +13,7 @@ public struct TimingThresholds
 public class BeatInputHandler : MonoBehaviour
 {
     [SerializeField] private Transform[] spawners = new Transform[4];
-    [SerializeField] private GameObject bubblePrefab;
+    [SerializeField] private GameObject arrowPrefab;
     
     [SerializeField] private string mapName;
     private Dictionary<float, int> _mapData;
@@ -27,10 +27,11 @@ public class BeatInputHandler : MonoBehaviour
     private int _currentCombo;
     private int _highestCombo;
 
-    [Header("Timing Settings")] public TimingThresholds timingThresholds;
+    [Header("Timing Settings")] 
+    [SerializeField] private TimingThresholds timingThresholds;
 
     [Header("Input Settings")]
-    public KeyCode[] laneKeys = { KeyCode.LeftArrow, KeyCode.DownArrow, KeyCode.UpArrow, KeyCode.RightArrow };
+    [SerializeField] private KeyCode[] laneKeys = { KeyCode.LeftArrow, KeyCode.DownArrow, KeyCode.UpArrow, KeyCode.RightArrow };
 
     void Start()
     {
@@ -47,19 +48,34 @@ public class BeatInputHandler : MonoBehaviour
     void Update()
     {
         if (Time.time >= _nextTimestamp) SpawnNextNote();
+
+        foreach (var key in laneKeys)
+        {
+            if (Input.GetKeyDown(key))
+            {
+                float currentTime = 0;
+            }
+        }
     }
 
     void SpawnNextNote()
     {
-        Instantiate(bubblePrefab, spawners[_nextLane - 1].position, Quaternion.identity);
+        GameObject newArrow = Instantiate(arrowPrefab, spawners[_nextLane - 1].position, Quaternion.identity);
         Debug.Log(_nextLane);
             
         _nextNoteIndex++;
             
         _nextTimestamp = _mapData.Keys.ToArray()[_nextNoteIndex];
         _nextLane = _mapData.Values.ToArray()[_nextNoteIndex];
+        
+        Destroy(newArrow, 1.5f);
     }
 
+    void CompareTiming()
+    {
+        
+    }
+    
     void RegisterHit(int scoreValue, float timeStamp)
     {
         _playerScore += scoreValue;
@@ -83,50 +99,9 @@ public class BeatInputHandler : MonoBehaviour
     }
 }
 
-
-/*
- 
-//i added above the logic for applying scores and keeping the player's combo streak and final score calculation.
-//i also added below the logic for assigning the scores based on the thresholds, though we still need to change variables to match our code
+//I added above the logic for applying scores and keeping the player's combo streak and final score calculation.
+//I also added below the logic for assigning the scores based on the thresholds, though we still need to change variables to match our code
 //and place the logic in the input handler. basically it takes the input's timestamp and calculates it's distance from the nearest timestamp,
 //after that it takes the time difference between the input and the timestamp and places it within one of the 2 thresholds and assigns score
 //accordingly, if it can't the time difference within one of the two thresholds it registers a miss whether it's too late or there is no valid 
 //beat in either threshold's range.
- 
-float closestBeatTime = -1f;
-        float closestTimeDifference = float.MaxValue;
-
-        foreach (float beatTime in activeBeats)
-        {
-            if (beatMap[beatTime] == lane)
-            {
-                float timeDifference = Mathf.Abs(gameTime - beatTime);
-
-                if (timeDifference < closestTimeDifference)
-                {
-                    closestTimeDifference = timeDifference;
-                    closestBeatTime = beatTime;
-                }
-            }
-        }
-
-        if (closestBeatTime >= 0)
-        {
-            if (closestTimeDifference <= timingThresholds.perfectThreshold)
-            {
-                RegisterHit(2, closestBeatTime); // Perfect
-            }
-            else if (closestTimeDifference <= timingThresholds.goodThreshold)
-            {
-                RegisterHit(1, closestBeatTime); // Good
-            }
-            else
-            {
-                RegisterMiss(); // Miss (too late)
-            }
-        }
-        else
-        {
-            RegisterMiss(); // Miss (no valid beat in range)
-        }
-*/
