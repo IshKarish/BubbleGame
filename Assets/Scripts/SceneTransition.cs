@@ -7,7 +7,7 @@ using static System.TimeZoneInfo;
 
 public class SceneTransition : MonoBehaviour
 {
-    public Camera mainCamera;
+/*    public Camera mainCamera;
     public float transitionTime = 1f;
     public Vector3 GameScenePosition;
     private Vector3 StartScenePosition;
@@ -36,6 +36,6 @@ public class SceneTransition : MonoBehaviour
         StartTransition();
         SceneManager.LoadScene("GameScene");
 
-    }
+    }*/
 
 }

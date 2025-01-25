@@ -18,4 +18,19 @@ public class Menu : MonoBehaviour
         SceneManager.LoadScene("LevelEditor");
     }
 
+    public void OnBackToStart()
+    {
+        SceneManager.LoadScene("StartScene");
+    }
+
+    public void OnLeaderBoardScene()
+    {
+        SceneManager.LoadScene("LeaderBoard");
+    }
+
+    public void OnGameScene()
+    {
+        SceneManager.LoadScene("GameScene");
+    }
+
 }

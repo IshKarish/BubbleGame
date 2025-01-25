@@ -1,6 +1,7 @@
 using JetBrains.Annotations;
 using TMPro;
 using Unity.VisualScripting;
+using UnityEditor.Build.Player;
 using UnityEngine;
 
 public class ScoreManager : MonoBehaviour
@@ -13,7 +14,9 @@ public class ScoreManager : MonoBehaviour
     private const string LeaderboardKeyPrefix = "LeaderboardScore";
     void Awake()
     {
+        LoadFromLeaderboard();
         UpdateScoreText(0);
+
     }
 
     public void UpdateScoreText(int _score)
@@ -23,6 +26,7 @@ public class ScoreManager : MonoBehaviour
 
     public void SaveToLeaderboard(int finalScore)
     {
+        Debug.Log("Save to leader board");
         int[] scores = new int[MaxLeaderboardEntries];
         for (int i = 0; i < MaxLeaderboardEntries; i++)
         {
@@ -44,6 +48,7 @@ public class ScoreManager : MonoBehaviour
 
     public void LoadFromLeaderboard()
     {
+        Debug.Log("Loading Leader Booard");
         string leaderboardTextContent = "Leaderboard: \n";
 
         for (int i = 0; i < MaxLeaderboardEntries; i++)
@@ -57,4 +62,8 @@ public class ScoreManager : MonoBehaviour
 
         _leaderBoardText.text = leaderboardTextContent;
     }
+
+   
+
+    
 }
