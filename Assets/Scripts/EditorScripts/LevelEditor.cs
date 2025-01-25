@@ -102,6 +102,8 @@ public class LevelEditor : MonoBehaviour
     
     void ValidateTimestamps()
     {
+        SerializedDictionary<float, int> newData = new SerializedDictionary<float, int>();
+        
         for (int i = 0; i < data.Keys.Count; i++)
         {
             float x = data.Keys.ToArray()[i];
@@ -109,8 +111,14 @@ public class LevelEditor : MonoBehaviour
 
             float newX = (float)(x + 0.588 - x1);
 
+            while (!newData.TryAdd(newX, data.Values.ToArray()[i]))
+            {
+                newX += 0.0001f;
+            }
             Debug.Log(newX);
         }
+
+        data = newData;
     }
 
     public void SaveLevel()

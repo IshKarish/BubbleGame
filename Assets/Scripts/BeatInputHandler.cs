@@ -12,6 +12,8 @@ public struct TimingThresholds
 
 public class BeatInputHandler : MonoBehaviour
 {
+    [SerializeField] private float arrowVelocity = 2;
+    
     [SerializeField] private Transform[] spawners = new Transform[4];
     [SerializeField] private GameObject arrowPrefab;
     
@@ -20,6 +22,8 @@ public class BeatInputHandler : MonoBehaviour
     
     private float _nextTimestamp;
     private int _nextLane;
+    
+    private float[] _activeTimeStamps = new float[4];
     
     private int _nextNoteIndex;
 
@@ -53,15 +57,32 @@ public class BeatInputHandler : MonoBehaviour
         {
             if (Input.GetKeyDown(key))
             {
-                float currentTime = 0;
+                float currentTime = Time.time;
+                int lane = GetLaneFromInput(key);
+
+                CompareTiming(currentTime, lane);
             }
         }
     }
 
+    int GetLaneFromInput(KeyCode key)
+    {
+        return key switch
+        {
+            KeyCode.DownArrow => 1,
+            KeyCode.UpArrow => 3,
+            KeyCode.LeftArrow => 0,
+            KeyCode.RightArrow => 1,
+            _ => 0
+        };
+    }
+
     void SpawnNextNote()
     {
+        _activeTimeStamps[_nextLane - 1] = _nextTimestamp;
+        
         GameObject newArrow = Instantiate(arrowPrefab, spawners[_nextLane - 1].position, Quaternion.identity);
-        Debug.Log(_nextLane);
+        newArrow.GetComponent<Rigidbody2D>().linearVelocityX = arrowVelocity;
             
         _nextNoteIndex++;
             
@@ -71,9 +92,11 @@ public class BeatInputHandler : MonoBehaviour
         Destroy(newArrow, 1.5f);
     }
 
-    void CompareTiming()
+    void CompareTiming(float inputTime, int lane)
     {
+        float timeDifference = Mathf.Abs(inputTime - _activeTimeStamps[lane]);
         
+        Debug.Log(timeDifference);
     }
     
     void RegisterHit(int scoreValue, float timeStamp)
