@@ -3,7 +3,6 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public class Menu : MonoBehaviour
 {
-    public GameObject options;
     public void OnQuitButton()
         {
             Application.Quit();
@@ -11,12 +10,12 @@ public class Menu : MonoBehaviour
 
     public void OnLevelSelectionButton()
     {
-        SceneManager.LoadScene("LevelSelection");
+        SceneManager.LoadScene("LevelScene");
     }
 
-    public void OnOptionsButton()
+    public void OnLevelEditorButton()
     {
-        options.SetActive(true);
+        SceneManager.LoadScene("LevelEditor");
     }
 
 }

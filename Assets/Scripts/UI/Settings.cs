@@ -6,8 +6,13 @@ using UnityEngine.UI;
 public class Settings : MonoBehaviour
 {
     public AudioMixer audioMixer;
+    public AudioSource audioSource;
     public Slider audioslider;
-    float currentVolume;
+    private float currentVolume;
+    public GameObject options;
+    public static bool IsPaused = false;
+    
+
 
     public void SetVolume(float volume)
     {
@@ -19,4 +24,21 @@ public class Settings : MonoBehaviour
     {
         PlayerPrefs.SetFloat("VolumePreference", currentVolume);
     }
+
+    public void OnOptionsButton()
+    {
+        options.SetActive(true);
+        Time.timeScale = 0f;
+        audioSource.Pause();
+
+    }
+
+    public void OnOptionsBack()
+    {
+        options.SetActive(false);
+        Time.timeScale = 1f;
+        audioSource.UnPause();
+    }
+
+
 }
