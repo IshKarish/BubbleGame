@@ -15,7 +15,7 @@ public class LevelSelector : MonoBehaviour
 
     public void Start()
     {
-        highestLevel = PlayerPrefs.GetInt("highestLevel", 1);
+/*        highestLevel = PlayerPrefs.GetInt("highestLevel", 1);
 
         for (int i = 0; i < levelButtons.Length; i++)
         {
@@ -32,11 +32,13 @@ public class LevelSelector : MonoBehaviour
                 levelButtons[i].GetComponentInChildren<TextMeshPro>().text = "" + levelNum;
                 levelButtons[i].GetComponent <Image>().sprite = done.sprite;
             }
-        }
+        }*/
     }
 
     public void LoadLevel(int levelNum)
     {
         SceneManager.LoadScene("Level_" +  levelNum);
     }
+
+
 }

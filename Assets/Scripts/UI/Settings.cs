@@ -40,5 +40,4 @@ public class Settings : MonoBehaviour
         audioSource.UnPause();
     }
 
-
 }
