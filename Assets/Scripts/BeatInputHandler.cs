@@ -1,23 +1,21 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-[Serializable]
-public struct TimingThresholds
-{
-    public float perfectThreshold;
-    public float goodThreshold;
-}
-
 public class BeatInputHandler : MonoBehaviour
 {
+    [SerializeField] private string mapName;
+    
+    [Header("Spawners")]
+    [SerializeField] private Transform[] arrowSpawners = new Transform[4];
+    [SerializeField] private Transform[] bubbleSpawners = new Transform[4];
+
+    [Header("Arrow Values")] [SerializeField]
+    private GameObject[] windPrefabs = new GameObject[4];
     [SerializeField] private float arrowVelocity = 2;
     
-    [SerializeField] private Transform[] spawners = new Transform[4];
-    [SerializeField] private GameObject arrowPrefab;
+    [SerializeField] private GameObject bubblePrefab;
     
-    [SerializeField] private string mapName;
     private Dictionary<float, int> _mapData;
     
     private float _nextTimestamp;
@@ -30,13 +28,7 @@ public class BeatInputHandler : MonoBehaviour
     private int _playerScore;
     private int _currentCombo;
     private int _highestCombo;
-
-    [Header("Timing Settings")] 
-    [SerializeField] private TimingThresholds timingThresholds;
-
-    [Header("Input Settings")]
-    [SerializeField] private KeyCode[] laneKeys = { KeyCode.LeftArrow, KeyCode.DownArrow, KeyCode.UpArrow, KeyCode.RightArrow };
-
+    
     void Start()
     {
         LevelData data = SaveSystem.LoadLevel(Application.persistentDataPath + "/" + mapName + ".roy");
@@ -51,60 +43,35 @@ public class BeatInputHandler : MonoBehaviour
 
     void Update()
     {
-        if (Time.time >= _nextTimestamp) SpawnNextNote();
-
-        foreach (var key in laneKeys)
-        {
-            if (Input.GetKeyDown(key))
-            {
-                float currentTime = Time.time;
-                int lane = GetLaneFromInput(key);
-
-                CompareTiming(currentTime, lane);
-            }
-        }
-    }
-
-    int GetLaneFromInput(KeyCode key)
-    {
-        return key switch
-        {
-            KeyCode.DownArrow => 1,
-            KeyCode.UpArrow => 3,
-            KeyCode.LeftArrow => 0,
-            KeyCode.RightArrow => 1,
-            _ => 0
-        };
+        if (_nextNoteIndex != -1 && Time.time >= _nextTimestamp - 9.515f) SpawnNextNote();
     }
 
     void SpawnNextNote()
     {
         _activeTimeStamps[_nextLane - 1] = _nextTimestamp;
         
-        GameObject newArrow = Instantiate(arrowPrefab, spawners[_nextLane - 1].position, Quaternion.identity);
+        GameObject newArrow = Instantiate(windPrefabs[_nextLane - 1], arrowSpawners[_nextLane - 1].position, Quaternion.identity);
         newArrow.GetComponent<Rigidbody2D>().linearVelocityX = arrowVelocity;
-            
-        _nextNoteIndex++;
-            
-        _nextTimestamp = _mapData.Keys.ToArray()[_nextNoteIndex];
-        _nextLane = _mapData.Values.ToArray()[_nextNoteIndex];
-        
-        Destroy(newArrow, 1.5f);
-    }
 
-    void CompareTiming(float inputTime, int lane)
-    {
-        float timeDifference = Mathf.Abs(inputTime - _activeTimeStamps[lane]);
-        
-        Debug.Log(timeDifference);
+        if (_nextNoteIndex < _mapData.Keys.Count - 1)
+        {
+            _nextNoteIndex++;
+
+            _nextTimestamp = _mapData.Keys.ToArray()[_nextNoteIndex];
+            _nextLane = _mapData.Values.ToArray()[_nextNoteIndex];
+        }
+        else _nextNoteIndex = -1;
     }
     
-    void RegisterHit(int scoreValue, float timeStamp)
+    void RegisterHit(int scoreValue)
     {
+        Debug.Log("Hit");
         _playerScore += scoreValue;
         _currentCombo++;
 
         if (_currentCombo > _highestCombo) _highestCombo = _currentCombo;
+        
+        // -8 / 1.5
     }
 
     void RegisterMiss()
