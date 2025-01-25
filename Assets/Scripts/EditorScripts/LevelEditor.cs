@@ -14,11 +14,11 @@ public class LevelEditor : MonoBehaviour
 {
     [SerializeField] private Transform cursor;
     [SerializeField] private TextMeshProUGUI levelInfoText;
-
-    public SerializedDictionary<float, int> Data;
+    
+    public SerializedDictionary<float, int> data;
     
     public LevelInfo LevelInfo;
-    [HideInInspector] public AudioClip Clip;
+    [HideInInspector] public AudioClip clip;
     
     private Camera _camera;
     private AudioSource _audioSource;
@@ -33,7 +33,7 @@ public class LevelEditor : MonoBehaviour
     {
         ShowLevelInfo();
 
-        Clip = _audioSource.clip;
+        clip = _audioSource.clip;
     }
 
     private void Update()
@@ -64,7 +64,7 @@ public class LevelEditor : MonoBehaviour
 
     void AddNoteAtCurrentTime(int lane)
     {
-        if (!Data.TryAdd(_audioSource.time, lane)) Debug.Log("No");
+        if (!data.TryAdd(_audioSource.time, lane)) Debug.Log("No");
     }
 
     void ManageCursor()
@@ -102,9 +102,9 @@ public class LevelEditor : MonoBehaviour
     
     void ValidateTimestamps()
     {
-        for (int i = 0; i < Data.Keys.Count; i++)
+        for (int i = 0; i < data.Keys.Count; i++)
         {
-            float x = Data.Keys.ToArray()[i];
+            float x = data.Keys.ToArray()[i];
             double x1 = x % 0.588;
 
             float newX = (float)(x + 0.588 - x1);
