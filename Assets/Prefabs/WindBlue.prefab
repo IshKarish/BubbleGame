@@ -178,4 +178,5 @@ MonoBehaviour:
   matchingKey: 274
   matchingBubbleGood: {fileID: 4743681685813268307, guid: 46a1a1d2ad4737148bdccf6a051ede47, type: 3}
   matchingBubblePerfect: {fileID: 4743681685813268307, guid: 42a5185342710f447a2f19d300f8fc48, type: 3}
+  destroyedBubble: {fileID: 4743681685813268307, guid: 8a7a96cc0f75fc0488e1a55262baed8c, type: 3}
   arrowVelocity: 2

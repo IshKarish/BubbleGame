@@ -1,12 +1,20 @@
 using Unity.Mathematics;
 using UnityEngine;
 
+enum Timing
+{
+    Perfect, 
+    Good,
+    Missed
+}
+
 public class ArrowInputHandler : MonoBehaviour
 {
     [SerializeField] private KeyCode matchingKey;
 
     [SerializeField] private GameObject matchingBubbleGood;
     [SerializeField] private GameObject matchingBubblePerfect;
+    [SerializeField] private GameObject destroyedBubble;
     
     [SerializeField] private float arrowVelocity = 2;
     
@@ -20,13 +28,9 @@ public class ArrowInputHandler : MonoBehaviour
             _useInput = false;
             GetComponent<BoxCollider2D>().enabled = false;
             
-            if (_isPerfect) SpawnBubble(true);
-            if (_isGood) SpawnBubble(false);
-            
-            if (!_isGood && !_isPerfect)
-            {
-                Debug.Log($"Lane {matchingKey} Missed");
-            }
+            if (_isPerfect) SpawnBubble(Timing.Perfect);
+            if (_isGood) SpawnBubble(Timing.Good);
+            if (!_isGood && !_isPerfect) SpawnBubble(Timing.Missed);
         }
     }
     
@@ -50,11 +54,27 @@ public class ArrowInputHandler : MonoBehaviour
         }
     }
 
-    void SpawnBubble(bool perfect)
+    void SpawnBubble(Timing timing)
     {
-        GameObject newBubble = Instantiate(perfect ? matchingBubbleGood : matchingBubblePerfect, transform.position, quaternion.identity);
+        GameObject newBubble = Instantiate(GetBubbleFromTiming(timing), transform.position, quaternion.identity);
         newBubble.GetComponent<Rigidbody2D>().linearVelocityX = arrowVelocity;
         
+        if (timing == Timing.Missed) Destroy(newBubble, 1);
         Destroy(gameObject);
+    }
+
+    GameObject GetBubbleFromTiming(Timing timing)
+    {
+        switch (timing)
+        {
+            case Timing.Perfect:
+                return matchingBubblePerfect;
+            case Timing.Good:
+                return matchingBubbleGood;
+            case Timing.Missed:
+                return destroyedBubble;
+        }
+
+        return null;
     }
 }

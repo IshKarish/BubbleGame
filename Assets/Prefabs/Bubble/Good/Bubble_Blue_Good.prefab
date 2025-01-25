@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: -3918483454086771129}
   - component: {fileID: -7334899494757872869}
   m_Layer: 0
-  m_Name: Bubble_Blue
+  m_Name: Bubble_Blue_Good
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -78,7 +78,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -8086173405154081926, guid: 8276f05a89c1f504c9100d03a21bd1aa, type: 3}
+  m_Sprite: {fileID: 4396257635457849318, guid: fb67e5b0bac99ad4695d364b2244107f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -130,5 +130,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   wobbleSpeedMin: 1
   wobbleSpeedMax: 3
-  wobbleIntensityMin: 0.1
-  wobbleIntensityMax: 0.3
+  wobbleIntensityMin: 0.05
+  wobbleIntensityMax: 0.15

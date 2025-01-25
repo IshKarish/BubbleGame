@@ -130,5 +130,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   wobbleSpeedMin: 1
   wobbleSpeedMax: 3
-  wobbleIntensityMin: 0.1
-  wobbleIntensityMax: 0.3
+  wobbleIntensityMin: 0.05
+  wobbleIntensityMax: 0.15

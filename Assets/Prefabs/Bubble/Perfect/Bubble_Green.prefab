@@ -10,10 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 8670778182805302858}
   - component: {fileID: 3344318605291744516}
-  - component: {fileID: 18038497986245275}
-  - component: {fileID: 1994599593239004268}
+  - component: {fileID: 5946456831258231001}
+  - component: {fileID: 7224637276431696311}
   m_Layer: 0
-  m_Name: Bubble_Red
+  m_Name: Bubble_Green
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -78,7 +78,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 8991872956904576825, guid: 3b165585f34e92e49a6458c98ac581bf, type: 3}
+  m_Sprite: {fileID: -8703081835682945535, guid: 7be3d5c307406f345973e0025e1f301b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -89,7 +89,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!50 &18038497986245275
+--- !u!50 &5946456831258231001
 Rigidbody2D:
   serializedVersion: 5
   m_ObjectHideFlags: 0
@@ -116,7 +116,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &1994599593239004268
+--- !u!114 &7224637276431696311
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -130,5 +130,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   wobbleSpeedMin: 1
   wobbleSpeedMax: 3
-  wobbleIntensityMin: 0.1
-  wobbleIntensityMax: 0.3
+  wobbleIntensityMin: 0.05
+  wobbleIntensityMax: 0.15

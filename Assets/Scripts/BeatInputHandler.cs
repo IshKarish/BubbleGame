@@ -15,6 +15,9 @@ public class BeatInputHandler : MonoBehaviour
     [SerializeField] private float arrowVelocity = 2;
     
     [SerializeField] private GameObject bubblePrefab;
+
+    [Header("Input Settings")]
+    [SerializeField] private KeyCode[] laneKeys = { KeyCode.LeftArrow, KeyCode.DownArrow, KeyCode.UpArrow, KeyCode.RightArrow };
     
     private Dictionary<float, int> _mapData;
     
